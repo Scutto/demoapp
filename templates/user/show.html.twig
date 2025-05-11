@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista utenti!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Lista utenti</h1>
+
+    <a href="{{path('users.store')}}">
+        <button type="button">
+            Crea un utente
+        </button>
+    </a>
+
+    <ul>
+        <li>Id: {{ user.id }}</li>
+        <li>Nome: {{ user.name }}</li>
+        <li>Email: {{ user.email }}</li>
+        <li>Data creazione {{ user.createdAt.getTimestamp() }}</li>
+    </ul>
+</div>
+{% endblock %}
