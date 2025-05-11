@@ -21,14 +21,6 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utenti/{id<\d+>}', name: 'users.show')]
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
     #[Route('/utenti/store', name: 'users.store')]
     public function store(Request $request, EntityManagerInterface $manager): Response
     {
@@ -36,7 +28,7 @@ final class UserController extends AbstractController
         $form = $this->createForm(UserForm::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
+        if($form->isSubmitted() && $form->isValid()) {
             $manager->persist($user);
             $manager->flush();
 
@@ -46,5 +38,44 @@ final class UserController extends AbstractController
         return $this->render('user/store.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/utenti/{id<\d+>}', name: 'users.show')]
+    public function show(User $user): Response
+    {
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/utenti/{id<\d+>}/edit', name: 'users.edit')]
+    public function edit(User $user, Request $request, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createForm(UserForm::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            return $this->redirectToRoute('users.index');
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/utenti/{id<\d+>}/delete', name: 'users.delete')]
+    public function delete(User $user, Request $request, EntityManagerInterface $manager): Response
+    {
+        if($request->isMethod('POST')) {
+            $manager->remove($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('users.index');
+        }
+
+        return $this->render('user/delete.html.twig');
     }
 }

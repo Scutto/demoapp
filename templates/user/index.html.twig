@@ -31,6 +31,9 @@
             <th>
                 Data creazione 
             </th>
+            <th>
+                Azioni
+            </th>
         </tr>
         {% for user in users %}
             <tr>
@@ -42,6 +45,19 @@
                 </td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.createdAt.getTimestamp() }}</td>
+                <td>
+                    <a href="{{ path('users.edit', {'id': user.id}) }}">
+                        <button>
+                            Modifica
+                        </button>
+                    </a>
+
+                    <a href="{{ path('users.delete', {'id': user.id}) }}">
+                        <button>
+                            Elimina
+                        </button>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
