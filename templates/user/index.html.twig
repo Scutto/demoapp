@@ -44,7 +44,7 @@
                     </a>
                 </td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.createdAt.getTimestamp() }}</td>
+                <td>{{ user.createdAt.format('d-m-Y') }}</td>
                 <td>
                     <a href="{{ path('users.edit', {'id': user.id}) }}">
                         <button>

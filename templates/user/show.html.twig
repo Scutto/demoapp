@@ -21,7 +21,7 @@
         <li>Id: {{ user.id }}</li>
         <li>Nome: {{ user.name }}</li>
         <li>Email: {{ user.email }}</li>
-        <li>Data creazione {{ user.createdAt.getTimestamp() }}</li>
+        <li>Data creazione {{ user.createdAt.format('d-m-Y') }}</li>
     </ul>
 </div>
 {% endblock %}
