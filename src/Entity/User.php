@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table('users')]
+#[UniqueEntity('email')]
 class User
 {
     #[ORM\Id]
@@ -24,7 +26,6 @@ class User
     #[Assert\Email(
         message: 'L\'indirizzo mail {{ value }} non e\' valido.',
     )]
-    #[Assert\Unique]
     private ?string $email = null;
 
     #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]
