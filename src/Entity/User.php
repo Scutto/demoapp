@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table('users')]
 #[UniqueEntity('email')]
+#[HasLifecycleCallbacks]
 class User
 {
     #[ORM\Id]
@@ -29,7 +31,7 @@ class User
     private ?string $email = null;
 
     #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]
-    private ?\DateTime $created_at = null; //now() ?
+    private ?\DateTimeImmutable $created_at = null;
 
     public function getId(): ?int
     {
@@ -60,15 +62,21 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTime $created_at): static
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->created_at = new \DateTimeImmutable();
     }
 }

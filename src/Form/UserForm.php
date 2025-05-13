@@ -15,7 +15,6 @@ class UserForm extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('created_at')
             ->add('save', SubmitType::class)
         ;
     }
