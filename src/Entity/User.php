@@ -24,6 +24,7 @@ class User
     #[Assert\Email(
         message: 'L\'indirizzo mail {{ value }} non e\' valido.',
     )]
+    #[Assert\Unique]
     private ?string $email = null;
 
     #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]

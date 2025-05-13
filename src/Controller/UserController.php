@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UserController extends AbstractController
 {
-    #[Route('/utenti', name: 'users.index')]
+    #[Route('/users', name: 'users.index')]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -21,7 +21,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utenti/store', name: 'users.store')]
+    #[Route('/users/store', name: 'users.store')]
     public function store(Request $request, EntityManagerInterface $manager): Response
     {
         $user = new User;
@@ -40,7 +40,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utenti/{id<\d+>}', name: 'users.show')]
+    #[Route('/users/{id<\d+>}', name: 'users.show')]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -48,7 +48,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utenti/{id<\d+>}/edit', name: 'users.edit')]
+    #[Route('/users/{id<\d+>}/edit', name: 'users.edit')]
     public function edit(User $user, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(UserForm::class, $user);
@@ -66,7 +66,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utenti/{id<\d+>}/delete', name: 'users.delete')]
+    #[Route('/users/{id<\d+>}/delete', name: 'users.delete')]
     public function delete(User $user, Request $request, EntityManagerInterface $manager): Response
     {
         if($request->isMethod('POST')) {
